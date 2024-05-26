@@ -14,7 +14,6 @@ namespace Pr_Controls
             InitializeTreeView();
             InitializeContextMenu();
             InitializeMenu();
-            InitializeToolStrip();
         }
 
         private void InitializeTreeView()
@@ -69,15 +68,6 @@ namespace Pr_Controls
             // Добавляем пункты меню в menuStrip1
             menuStrip1.Items.Add(fileMenu);
             menuStrip1.Items.Add(dateMenu);
-        }
-
-        private void InitializeToolStrip()
-        {
-            ToolStrip toolStrip = new ToolStrip();
-            ToolStripButton toolStripButton = new ToolStripButton("Добавить элементы");
-            toolStripButton.Click += new EventHandler(toolStripButton_Click);
-            toolStrip.Items.Add(toolStripButton);
-            this.Controls.Add(toolStrip);
         }
 
         private void toolStripButton_Click(object sender, EventArgs e)
