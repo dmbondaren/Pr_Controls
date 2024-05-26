@@ -1,17 +1,20 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Pr_Controls
 {
     public partial class Form1 : Form
     {
+        private ListView lv1;
+
         public Form1()
         {
             InitializeComponent();
             InitializeTreeView();
-            InitializeListView();
             InitializeContextMenu();
             InitializeMenu();
+            InitializeToolStrip();
         }
 
         private void InitializeTreeView()
@@ -28,15 +31,6 @@ namespace Pr_Controls
 
             treeView1.Nodes.Add(semester1);
             treeView1.Nodes.Add(semester2);
-        }
-
-        private void InitializeListView()
-        {
-            listView1.View = View.Details;
-            listView1.Columns.Add("Group Number", 150);
-            listView1.Columns.Add("Student Name", 150);
-            listView1.FullRowSelect = true;
-            listView1.GridLines = true;
         }
 
         private void InitializeContextMenu()
@@ -75,6 +69,28 @@ namespace Pr_Controls
             // Добавляем пункты меню в menuStrip1
             menuStrip1.Items.Add(fileMenu);
             menuStrip1.Items.Add(dateMenu);
+        }
+
+        private void InitializeToolStrip()
+        {
+            ToolStrip toolStrip = new ToolStrip();
+            ToolStripButton toolStripButton = new ToolStripButton("Добавить элементы");
+            toolStripButton.Click += new EventHandler(toolStripButton_Click);
+            toolStrip.Items.Add(toolStripButton);
+            this.Controls.Add(toolStrip);
+        }
+
+        private void toolStripButton_Click(object sender, EventArgs e)
+        {
+            lv1.Items.Clear(); // Очищаем текущие элементы перед добавлением новых
+            foreach (Control cl in this.Controls)
+            {
+                string[] s2 = new string[2];
+                s2[0] = cl.GetType().ToString();
+                s2[1] = cl.Name;
+                ListViewItem lvitems1 = new ListViewItem(s2);
+                lv1.Items.Add(lvitems1);
+            }
         }
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
@@ -200,6 +216,31 @@ namespace Pr_Controls
         private void timer1_Tick(object sender, EventArgs e)
         {
             // Ваш код для обработки тика таймера здесь
+        }
+
+        private void listView2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripButton1_Click_1(object sender, EventArgs e)
+        {
+            ListView lv1 = new ListView();
+            lv1.Name = "lv1";
+            lv1.Size = new Size(360, 160);
+            lv1.Location = new Point(20, 200);
+            lv1.View = View.Details;
+            lv1.Columns.Add("тип элемента", 240);
+            lv1.Columns.Add("имя элемента", 120);
+            Controls.Add(lv1);
+            foreach (Control c1 in Controls)
+            {
+                string[] s2 = new string[2];
+                s2[0] = c1.GetType().ToString();
+                s2[1] = c1.Name;
+                ListViewItem lvi1 = new ListViewItem(s2);
+                lv1.Items.Add(lvi1);
+            }
         }
     }
 }
